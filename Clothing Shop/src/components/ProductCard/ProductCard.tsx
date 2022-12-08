@@ -8,26 +8,44 @@ export const ProductCard = ({ name, imageUrl, price }: Product) => {
   const {products, addToCart, removeItem} = useContext(ClothingShopContext);
   const [isInCart, setIsInCart] = useState(false);
   
-  useEffect(() => {
-    const itemInCart = products.find((product: { name: string; }) => product.name === name);
+  // useEffect(() => {
+  //   const itemInCart = products.find((product: { name: string; }) => product.name === name);
 
-    if (itemInCart) {
-      setIsInCart(true);
-    } else {
-      setIsInCart(false);
-    }
-  }, [products, name]);
+  //   if (itemInCart) {
+  //     setIsInCart(true);
+  //   } else {
+  //     setIsInCart(false);
+  //   }
+  // }, [products, name]);
   
+  // const handleClick = () => {
+  //   const product = {name, imageUrl, price};
+  //   if(isInCart){
+  //     removeItem(product);
+  //     setIsInCart(false);
+  //   } else{
+  //     addToCart(product);
+  //     setIsInCart(true);
+  //   }
+  // }
+  useEffect(() => {
+    const itemInCart = products.find(
+      (product: { name: string }) => product.name === name
+    );
+
+    setIsInCart(itemInCart ? true : false);
+  }, [products, name]);
+
   const handleClick = () => {
-    const product = {name, imageUrl, price};
-    if(isInCart){
+    const product = { name, imageUrl, price };
+    if (isInCart) {
       removeItem(product);
-      setIsInCart(false);
-    } else{
-      addToCart(product);
-      setIsInCart(true);
+      return;
     }
-  }
+
+    setIsInCart(isInCart!);
+    addToCart(product);
+  };
   return (
     <Wrapper background={imageUrl}>
       <AddButton isInCart={isInCart} onClick={handleClick}>

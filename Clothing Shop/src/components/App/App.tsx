@@ -17,19 +17,15 @@ export const App = () => {
   const ZERO = 0;
 
   const addToCart = (product: Product) => {
-    //pangitaon ang item if naa sa cart, mo return og data(true) if naa
-    const isExist = state.products.find((current: { name: string }) =>
+        const isExist = state.products.find((current: { name: string }) =>
       current.name === product.name)
 
-    //if ang quantity kay zero na gani remove ang item sa cart
-    if (product.count <= ZERO) {
+       if (product.count <= ZERO) {
       removeItem(product)
       return;
     }
 
-    // if ang item wala sa cart kay iya iadd sa cart then mo return siya
-    //if ang isExist kay null mo sud sa if statement
-    if (!isExist) {
+        if (!isExist) {
       const updatedCart = state.products.concat(product);
       updatePrice(updatedCart);
       dispatch(add(updatedCart));
@@ -37,44 +33,33 @@ export const App = () => {
       return
     }
 
-    // if ang itme naa sa cart
-    //if ang time more than 0 anfg quamntity
-    state.products.forEach((element: Product) => {
+      state.products.forEach((element: Product) => {
       if (element.name === product.name)
         element.count = product.count
     });
 
-    //update price
-    updatePrice(state.products);
-    //update state sa product
-    dispatch(add(state.products));
+        updatePrice(state.products);
+        dispatch(add(state.products));
   }
 
   const addToWishlist = (wishlist: Product) => {
-    //gi loop ang data
-    shopData.forEach((product: Product) => {
+       shopData.forEach((product: Product) => {
       
-      //if data gi add equal sa product list
-      if (product.name == wishlist.name)  
-        //gi set to true or false ang isWishlist
-        product.isWishlist = !wishlist.isWishlist
+           if (product.name == wishlist.name)  
+               product.isWishlist = !wishlist.isWishlist
 
-      // product.isWishlist = product.name == wishlist.name ?
-      //   !wishlist.isWishlist : product.isWishlist
     });
 
-    //update state
+  
     dispatch(add(state.products));
   };
 
 
   const removeItem = (product: Product) => {
-    //gi filter out ang product 
     const updatedCart = state.products.filter(
       (currentProduct: Product) => currentProduct.name !== product.name
     );
 
-    //si updatedCart kay ang list product result after gi remove 
     updatePrice(updatedCart);
     dispatch(remove(updatedCart));
   };
@@ -83,15 +68,12 @@ export const App = () => {
     let total = ZERO;
 
     products.forEach((product: { price: number, count: number }) => (
-      // quantity * price
       total += (product.count * product.price)
     ));
 
     dispatch(update(total));
   };
 
-
-//likely global values
   const value = {
     total: state.total,
     products: state.products,

@@ -38,8 +38,7 @@ export const ProductCard = ({ name, imageUrl, price, isWishlist, count }: Produc
   }, [products, name]);
 
   const handleClick = () => {
-    // shoping cart icon
-
+  
     var product = { name, imageUrl, price, count };
     product.count = ONE
 
@@ -60,14 +59,12 @@ export const ProductCard = ({ name, imageUrl, price, isWishlist, count }: Produc
     setAddCount(thisCount + ONE)
     product.count = thisCount + ONE;
 
-
-    //gi update ang quantity sa product ++
     addToCart(product);
   };
 
   const addToWish = () => {
     var product = { name, imageUrl, price, isWishlist, count };
-    //gi call si addtowishlist method
+
     addToWishlist(product);
   }
 
@@ -78,14 +75,13 @@ export const ProductCard = ({ name, imageUrl, price, isWishlist, count }: Produc
     setAddCount(thisCount - ONE)
     product.count = thisCount - ONE;
 
-    //gi update ang quantity sa product --
     addToCart(product);
   };
 
   return (
     <Wrapper background={imageUrl}>
       {count > 0 ?
-        // add remove button 
+ 
         <div>
           <AddButton isInCart={isInCart} onClick={addCountValue}>
             <p>{"+"}</p>
@@ -98,13 +94,12 @@ export const ProductCard = ({ name, imageUrl, price, isWishlist, count }: Produc
         </div>
         :
         <div>
-          {/* //add to wishlist */}
+        
           <WishBtnContainer>
             {isWishlist ? <FavoriteOutlinedIcon style={Icon} onClick={addToWish} /> :
               <FavoriteBorderOutlinedIcon style={Icon} onClick={addToWish} />}
           </WishBtnContainer>
           {isInCart ?
-            // add to cart
             <CartContainer>
               <RemoveShoppingCartOutlinedIcon style={Icon} onClick={handleClick} />
             </CartContainer> :

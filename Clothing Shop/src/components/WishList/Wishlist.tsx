@@ -12,7 +12,6 @@ export const Wishlist = () => {
       <Title>Your product wishlists </Title>
       <ProductsWrapper>
 
-        {/* //gi filter ang data if naa sa wishlist io gi heart */}
         {shopData.filter((product: Product) =>
           product.isWishlist == true).map((product: Product, index) => (
             <ProductCard {...product} key={index} />
